@@ -1,0 +1,39 @@
+<table>
+  <thead>
+  <tr>
+    <th>id</th>
+    <th>brand</th>
+    <th>model</th>
+    <th>year</th>
+    <th>original price</th>
+    <th>actual price</th>
+    <th>new</th>
+    <th>production date</th>
+    <th>dealership</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% if !@cars.empty? %>
+    <% @cars.each do |car| %>
+  <tr>
+    <td><%= car.id %></td>
+    <td><%= car.brand %></td>
+    <td><%= car.model %></td>
+    <td><%= car.year %></td>
+    <td><%= number_to_currency(car.price) %></td>
+    <td><%= format_deprecated_price(car.calculate_deprecate) %></td>
+    <td><%= car.is_new? %></td>
+    <td><%= car.formated_production_date %></td>
+    <td><%= car.dealership_name %></td>
+    <td><%= link_to 'details', car_path(car.id) %></td>
+  </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>
+<br>
+<%= link_to 'New Car', new_car_path %>
+<% if current_user.superadmin_role? %>
+  <%= link_to 'Create Dealerships', dealerships_url %>
+<% end %>

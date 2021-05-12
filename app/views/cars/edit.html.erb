@@ -1,0 +1,30 @@
+<div style="text-align:left; width:25%; height: 25%; position: relative;">
+  <% if  @car%>
+    <%=form_with(model: @car) do |f| %>
+      <%= f.label :model %>
+      <%= f.text_field :model %>
+      <br>
+      <%= f.label :brand %>
+      <%= f.text_field :brand %>
+      <br>
+      <%= f.label :year %>
+      <%= f.text_field :year %>
+      <br>
+      <%= f.label :price %>
+      <%= f.text_field :price %>
+      <br>
+      <%= f.label :new_model %>
+      <%= f.select :new_model, new_model_options.collect { |p| [p[:label], p[:value]]}, { include_blank: 'None'  }%>
+      <br>
+      <%= f.label :production_date %>
+      <%= f.date_field :production_date, as: :date, value: f.object.try(:strftime,"%m/%d/%Y") %>
+      <br>
+      <%= f.label :dealership_id %>
+      <%= f.select :dealership_id, Dealership.all.collect { |p| [ p.name, p.id ] }, include_blank: true %>
+      <br>
+      <%= f.submit %>
+      <%= link_to 'Cancel', cars_path %>
+    <% end %>
+  <% end %>
+</div>
+
